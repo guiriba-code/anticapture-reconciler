@@ -1,0 +1,34 @@
+# HELP anticapture_reconciliation_alerts Reconciler alerts by DAO, type and severity
+# TYPE anticapture_reconciliation_alerts gauge
+anticapture_reconciliation_alerts{dao="comp",type="list_category_conflict",severity="medium"} 2
+anticapture_reconciliation_alerts{dao="comp",type="list_duplicate",severity="medium"} 2
+anticapture_reconciliation_alerts{dao="comp",type="unlabeled_holder",severity="medium"} 7
+anticapture_reconciliation_alerts{dao="ens",type="unlabeled_holder",severity="medium"} 4
+anticapture_reconciliation_alerts{dao="fluid",type="governance_migration_pending",severity="high"} 1
+anticapture_reconciliation_alerts{dao="fluid",type="health_false_positive",severity="low"} 1
+anticapture_reconciliation_alerts{dao="fluid",type="timelock_mismatch",severity="medium"} 1
+anticapture_reconciliation_alerts{dao="fluid",type="unlabeled_holder",severity="medium"} 16
+anticapture_reconciliation_alerts{dao="gtc",type="governor_not_indexed",severity="critical"} 1
+anticapture_reconciliation_alerts{dao="gtc",type="health_false_positive",severity="low"} 1
+anticapture_reconciliation_alerts{dao="gtc",type="list_duplicate",severity="medium"} 1
+anticapture_reconciliation_alerts{dao="gtc",type="proposal_votes_mismatch",severity="high"} 6
+anticapture_reconciliation_alerts{dao="gtc",type="unlabeled_holder",severity="medium"} 8
+anticapture_reconciliation_alerts{dao="lil_nouns",type="api_error",severity="high"} 1
+anticapture_reconciliation_alerts{dao="lil_nouns",type="health_false_positive",severity="low"} 1
+anticapture_reconciliation_alerts{dao="nouns",type="indexer_stalled",severity="high"} 1
+anticapture_reconciliation_alerts{dao="nouns",type="supply_mismatch",severity="high"} 1
+anticapture_reconciliation_alerts{dao="nouns",type="voting_power_mismatch",severity="high"} 1
+anticapture_reconciliation_alerts{dao="obol",type="health_false_positive",severity="low"} 1
+anticapture_reconciliation_alerts{dao="obol",type="unlabeled_holder",severity="medium"} 13
+anticapture_reconciliation_alerts{dao="scr",type="list_duplicate",severity="medium"} 1
+anticapture_reconciliation_alerts{dao="scr",type="proposal_votes_mismatch",severity="high"} 1
+anticapture_reconciliation_alerts{dao="shu",type="health_false_positive",severity="low"} 1
+anticapture_reconciliation_alerts{dao="shu",type="unlabeled_holder",severity="medium"} 9
+anticapture_reconciliation_alerts{dao="uni",type="list_commented_line",severity="info"} 1
+anticapture_reconciliation_alerts{dao="uni",type="unlabeled_holder",severity="medium"} 5
+# HELP anticapture_reconciliation_last_run_timestamp_seconds Unix time of the last finished run
+# TYPE anticapture_reconciliation_last_run_timestamp_seconds gauge
+anticapture_reconciliation_last_run_timestamp_seconds 1794237587
+# HELP anticapture_reconciliation_duration_seconds Duration of the last run
+# TYPE anticapture_reconciliation_duration_seconds gauge
+anticapture_reconciliation_duration_seconds 121

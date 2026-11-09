@@ -1,0 +1,55 @@
+name: Hourly reconciliation
+
+# Disabled by default. To turn the hourly schedule on, set the repository variable
+# RECONCILER_SCHEDULE_ENABLED=true (Settings > Secrets and variables > Actions > Variables).
+# "Run workflow" (workflow_dispatch) always works.
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      daos:
+        description: "Comma-separated DAO ids (empty = all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  reconcile:
+    if: github.event_name == 'workflow_dispatch' || vars.RECONCILER_SCHEDULE_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Run reconciler
+        env:
+          # Optional overrides; public defaults are used when these are empty.
+          RPC_URL: ${{ vars.RPC_URL }}
+          SCROLL_RPC_URL: ${{ vars.SCROLL_RPC_URL }}
+          ANTICAPTURE_API_URL: ${{ vars.ANTICAPTURE_API_URL }}
+          DAOS: ${{ inputs.daos }}
+        run: |
+          for v in RPC_URL SCROLL_RPC_URL ANTICAPTURE_API_URL; do
+            if [ -z "${!v}" ]; then unset "$v"; fi
+          done
+          if [ -n "$DAOS" ]; then
+            python -m reconciler --daos "$DAOS" --output output
+          else
+            python -m reconciler --output output
+          fi
+      - name: Add alerts to the job summary
+        if: always()
+        run: '[ -f output/alerts.md ] && cat output/alerts.md >> "$GITHUB_STEP_SUMMARY" || true'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reconciler-output
+          path: output/
+          retention-days: 14
